@@ -1,6 +1,21 @@
-{"default": "deny",
- "deny_args": ["\\.ssh", "\\.env", "id_rsa"],
- "rules": [{"tool": "read_*", "action": "allow"},
-           {"tool": "fetch_*", "action": "allow"},
-           {"tool": "send_*", "action": "ask", "reason": "outbound communication"},
-           {"tool": "delete_*", "action": "deny", "reason": "destructive action"}]}
+{
+  "default": "deny",
+  "allow_paths": [
+    "./workspace"
+  ],
+  "deny_args": [
+    "\\.ssh",
+    "\\.env",
+    "id_rsa",
+    "api[_-]?key"
+  ],
+  "block_secrets": true,
+  "redact_secrets": true,
+  "rules": [
+    { "tool": "read_*", "action": "allow" },
+    { "tool": "write_*", "action": "allow" },
+    { "tool": "fetch_*", "action": "allow" },
+    { "tool": "send_*", "action": "ask", "reason": "outbound communication" },
+    { "tool": "delete_*", "action": "deny", "reason": "destructive action" }
+  ]
+}
